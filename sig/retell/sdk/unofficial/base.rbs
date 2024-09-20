@@ -1,0 +1,42 @@
+module Retell
+  module SDK
+    module Unofficial
+      class Base
+        extend ClassMethods
+
+        @attributes: Array[Symbol]
+        @writeable_attributes: Array[Symbol]
+
+        attr_accessor client: Retell::SDK::Unofficial::Client
+        attr_reader changed_attributes: Hash[Symbol, untyped]
+
+        def self.inherited: (Class subclass) -> void
+
+        def self.each_attribute: () { (Symbol) -> void } -> void
+
+        def initialize: (Retell::SDK::Unofficial::Client client, Hash[Symbol, untyped] raw_response) -> void
+
+        def []: (Symbol | String key) -> untyped
+
+        def []=: (Symbol | String key, untyped value) -> untyped
+
+        def to_h: () -> Hash[Symbol, untyped]
+
+        def keys: () -> Array[Symbol]
+
+        def values: () -> Array[untyped]
+
+        def each: () { (Symbol, untyped) -> void } -> Hash[Symbol, untyped]
+                | () -> Enumerator[Array[Symbol | untyped], Hash[Symbol, untyped]]
+
+        def fetch: (Symbol | String key, ?untyped default) -> untyped
+                 | (Symbol | String key) { (Symbol | String) -> untyped } -> untyped
+
+        module ClassMethods
+          def attributes: () -> Array[Symbol]
+          def writeable_attributes: () -> Array[Symbol]
+        end
+      end
+    end
+  end
+end

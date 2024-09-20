@@ -1,0 +1,26 @@
+module Retell
+  module SDK
+    module Unofficial
+      module API
+        class Voice
+          def initialize: (Retell::SDK::Unofficial::Client) -> void
+
+          def retrieve: (
+            String | Retell::SDK::Unofficial::Voice voice_or_id,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::Voice
+
+          def list: (
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::VoiceList
+        end
+      end
+    end
+  end
+end

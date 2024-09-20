@@ -1,0 +1,14 @@
+module Retell
+  module SDK
+    module Unofficial
+      class WebCall < BaseCall
+        @attributes: Array[Symbol]
+
+        attr_reader access_token: String
+
+        def initialize: (Retell::SDK::Unofficial::Client, Hash[Symbol, untyped] raw_response) -> void
+        def retrieve: -> void
+      end
+    end
+  end
+end

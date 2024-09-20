@@ -1,0 +1,112 @@
+module Retell
+  module SDK
+    module Unofficial
+      class Agent < Base
+        @attributes: Array[Symbol]
+
+        attr_reader agent_id: String
+        attr_reader llm_websocket_url: String
+        attr_reader voice_id: String
+        attr_reader agent_name: String?
+        attr_reader ambient_sound: ("coffee-shop" | "convention-hall" | "summer-outdoor" | "mountain-outdoor" | "static-noise" | "call-center")?
+        attr_reader ambient_sound_volume: Float?
+        attr_reader backchannel_frequency: Float?
+        attr_reader backchannel_words: Array[String]?
+        attr_reader boosted_keywords: Array[String]?
+        attr_reader enable_backchannel: bool?
+        attr_reader enable_voicemail_detection: bool?
+        attr_reader end_call_after_silence_ms: Integer?
+        attr_reader fallback_voice_ids: Array[String]?
+        attr_reader interruption_sensitivity: Float?
+        attr_reader language: ("en-US" | "en-IN" | "en-GB" | "de-DE" | "es-ES" | "es-419" | "hi-IN" | "ja-JP" | "pt-PT" | "pt-BR" | "fr-FR" | "multi")?
+        attr_reader last_modification_timestamp: Time?
+        attr_reader max_call_duration_ms: Integer?
+        attr_reader normalize_for_speech: bool?
+        attr_reader opt_out_sensitive_data_storage: bool?
+        attr_reader post_call_analysis_data: Array[string_analysis_data | enum_analysis_data | boolean_analysis_data | number_analysis_data]?
+        attr_reader pronunciation_dictionary: Array[{ word: String, alphabet: ("ipa" | "cmu"), phoneme: String }]?
+        attr_reader reminder_max_count: Integer?
+        attr_reader reminder_trigger_ms: Integer?
+        attr_reader responsiveness: Float?
+        attr_reader voice_model: ("eleven_turbo_v2" | "eleven_turbo_v2_5" | "eleven_multilingual_v2")?
+        attr_reader voice_speed: Float?
+        attr_reader voice_temperature: Float?
+        attr_reader voicemail_detection_timeout_ms: Integer?
+        attr_reader voicemail_message: String?
+        attr_reader webhook_url: String?
+
+        def retrieve: () -> Retell::SDK::Unofficial::Agent
+        def update: (
+          ?llm_websocket_url: String?,
+          ?voice_id: (String | Retell::SDK::Unofficial::Voice)?,
+          ?agent_name: String?,
+          ?ambient_sound: String?,
+          ?ambient_sound_volume: (Float | Integer)?,
+          ?backchannel_frequency: (Float | Integer)?,
+          ?backchannel_words: Array[String]?,
+          ?boosted_keywords: Array[String]?,
+          ?enable_backchannel: bool?,
+          ?enable_voicemail_detection: bool?,
+          ?end_call_after_silence_ms: Integer?,
+          ?fallback_voice_ids: Array[(String | Retell::SDK::Unofficial::Voice)]?,
+          ?interruption_sensitivity: (Float | Integer)?,
+          ?language: String?,
+          ?max_call_duration_ms: Integer?,
+          ?normalize_for_speech: bool?,
+          ?opt_out_sensitive_data_storage: bool?,
+          ?post_call_analysis_data: Array[Hash[Symbol, untyped]]?,
+          ?pronunciation_dictionary: Array[Hash[Symbol, String]]?,
+          ?reminder_max_count: Integer?,
+          ?reminder_trigger_ms: Integer?,
+          ?responsiveness: (Float | Integer)?,
+          ?voice_model: String?,
+          ?voice_speed: (Float | Integer)?,
+          ?voice_temperature: (Float | Integer)?,
+          ?voicemail_detection_timeout_ms: Integer?,
+          ?voicemail_message: String?,
+          ?volume: (Float | Integer)?,
+          ?webhook_url: String?,
+          ?extra_headers: Hash[String, String]?,
+          ?extra_query: Hash[String, String]?,
+          ?extra_body: Hash[Symbol, untyped]?,
+          ?timeout: Integer?
+        ) -> Retell::SDK::Unofficial::Agent
+        def delete: () -> nil
+
+        def id: () -> String
+        def name: () -> String?
+        def name=: (String) -> String
+        def voice: () -> (String | Retell::SDK::Unofficial::Voice)?
+        def voice=: (String | Retell::SDK::Unofficial::Voice) -> (String | Retell::SDK::Unofficial::Voice)
+        def fallback_voices: () -> Array[(String)]?
+        def fallback_voices=: (Array[(String | Retell::SDK::Unofficial::Voice)]) -> Array[(String | Retell::SDK::Unofficial::Voice)]
+      end
+
+      type string_analysis_data = {
+        type: "string",
+        name: String,
+        description: String,
+        examples: Array[String]?
+      }
+
+      type enum_analysis_data = {
+        type: "enum",
+        name: String,
+        description: String,
+        choices: Array[String]
+      }
+
+      type boolean_analysis_data = {
+        type: "boolean",
+        name: String,
+        description: String
+      }
+
+      type number_analysis_data = {
+        type: "number",
+        name: String,
+        description: String
+      }
+    end
+  end
+end

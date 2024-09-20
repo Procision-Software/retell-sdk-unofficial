@@ -1,0 +1,14 @@
+module Retell
+  module SDK
+    module Unofficial
+      class Concurrency < Base
+        @attributes: Array[Symbol]
+
+        attr_reader current_concurrency: Integer
+        attr_reader concurrency_limit: Integer
+
+        def retrieve: () -> Retell::SDK::Unofficial::Concurrency
+      end
+    end
+  end
+end

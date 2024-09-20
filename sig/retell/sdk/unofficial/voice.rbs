@@ -1,0 +1,25 @@
+module Retell
+  module SDK
+    module Unofficial
+      class Voice < Base
+        @attributes: Array[Symbol]
+
+        type provider = :elevenlabs | :openai | :deepgram
+        type gender = :male | :female
+
+        attr_reader voice_id: String
+        attr_reader voice_name: String
+        attr_reader provider: provider
+        attr_reader accent: String?
+        attr_reader gender: gender
+        attr_reader age: String?
+        attr_reader preview_audio_url: String?
+
+        def retrieve: () -> Retell::SDK::Unofficial::Voice
+
+        def id: () -> String
+        def name: () -> String
+      end
+    end
+  end
+end

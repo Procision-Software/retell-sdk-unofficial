@@ -1,0 +1,7 @@
+module Retell
+  module SDK
+    module Unofficial
+      VERSION: String
+    end
+  end
+end

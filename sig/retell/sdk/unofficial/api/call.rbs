@@ -1,0 +1,75 @@
+module Retell
+  module SDK
+    module Unofficial
+      module API
+        class Call
+          def initialize: (Retell::SDK::Unofficial::Client) -> void
+
+          def create_web_call: (
+            agent_id: (String | Retell::SDK::Unofficial::Agent),
+            ?metadata: Hash[String, untyped]?,
+            ?retell_llm_dynamic_variables: Hash[String, untyped]?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::WebCall
+
+          def create_phone_call: (
+            from_number: String,
+            to_number: String,
+            ?override_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?metadata: Hash[String, untyped]?,
+            ?retell_llm_dynamic_variables: Hash[String, untyped]?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneCall
+
+          def register: (
+            agent_id: (String | Retell::SDK::Unofficial::Agent),
+            ?direction: ("inbound" | "outbound")?,
+            ?from_number: String?,
+            ?to_number: String?,
+            ?metadata: Hash[String, untyped]?,
+            ?retell_llm_dynamic_variables: Hash[String, untyped]?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneCall
+
+          def retrieve: (
+            (String | Retell::SDK::Unofficial::PhoneCall | Retell::SDK::Unofficial::WebCall) call_or_id,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> (Retell::SDK::Unofficial::PhoneCall | Retell::SDK::Unofficial::WebCall)
+
+          def list: (
+            ?filter_criteria: Hash[Symbol, untyped]?,
+            ?limit: Integer?,
+            ?pagination_key: String?,
+            ?sort_order: ("ascending" | "descending")?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::CallList
+
+          private
+
+          def validate_non_empty_string: (String value, String param_name) -> void
+          def validate_phone_number: (String value, String param_name) -> void
+          def validate_direction: (String value) -> void
+          def validate_positive_integer: (Integer value, String param_name) -> void
+          def validate_sort_order: (String value) -> void
+          def validate_filter_criteria: (Hash[Symbol, untyped] criteria) -> void
+          def validate_timestamp: (Integer | Time value, String param_name) -> void
+        end
+      end
+    end
+  end
+end

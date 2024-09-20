@@ -1,0 +1,30 @@
+module Retell
+  module SDK
+    module Unofficial
+      class BaseList
+        include Enumerable[untyped]
+
+        attr_reader items: Array[untyped]
+
+        def initialize: (Symbol items_key, Hash[Symbol, untyped] raw_response) -> void
+
+        def []: (Integer index) -> untyped
+
+        def each: () { (untyped) -> void } -> Array[untyped]
+                | () -> Enumerator[untyped, Array[untyped]]
+
+        def length: () -> Integer
+
+        alias size length
+
+        def to_a: () -> Array[untyped]
+
+        def empty?: () -> bool
+
+        def first: () -> untyped
+
+        def last: () -> untyped
+      end
+    end
+  end
+end

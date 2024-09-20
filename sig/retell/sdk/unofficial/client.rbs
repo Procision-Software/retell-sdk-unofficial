@@ -1,0 +1,86 @@
+module Retell
+  module SDK
+    module Unofficial
+      class Client
+        DEFAULT_BASE_URL: String
+        DEFAULT_TIMEOUT: Integer
+
+        type list_response_types = Retell::SDK::Unofficial::AgentList | Retell::SDK::Unofficial::CallList | Retell::SDK::Unofficial::RetellLLMList | Retell::SDK::Unofficial::PhoneNumberList | Retell::SDK::Unofficial::VoiceList
+
+        type single_response_types = (Retell::SDK::Unofficial::Agent | Retell::SDK::Unofficial::Call | Retell::SDK::Unofficial::RetellLLM | Retell::SDK::Unofficial::PhoneNumber | Retell::SDK::Unofficial::Voice | Retell::SDK::Unofficial::Concurrency)
+
+        type single_response_type_singletons = (singleton(Retell::SDK::Unofficial::Agent) | singleton(Retell::SDK::Unofficial::Call) | singleton(Retell::SDK::Unofficial::RetellLLM) | singleton(Retell::SDK::Unofficial::PhoneNumber) | singleton(Retell::SDK::Unofficial::Voice) | singleton(Retell::SDK::Unofficial::Concurrency))
+
+        type list_response_type_singletons = (singleton(Retell::SDK::Unofficial::AgentList) | singleton(Retell::SDK::Unofficial::CallList) | singleton(Retell::SDK::Unofficial::RetellLLMList) | singleton(Retell::SDK::Unofficial::PhoneNumberList) | singleton(Retell::SDK::Unofficial::VoiceList))
+
+        def initialize: (api_key: String, ?base_url: String?, ?timeout: Integer?) -> void
+
+        def agent: -> Retell::SDK::Unofficial::API::Agent
+        def call: -> Retell::SDK::Unofficial::API::Call
+        def retell_llm: -> Retell::SDK::Unofficial::API::RetellLLM
+        def phone_number: -> Retell::SDK::Unofficial::API::PhoneNumber
+        def voice: -> Retell::SDK::Unofficial::API::Voice
+        def concurrency: -> Retell::SDK::Unofficial::API::Concurrency
+
+        def agents: () -> Retell::SDK::Unofficial::AgentList
+
+        def calls: (
+          ?filter_criteria: Hash[Symbol, untyped]?,
+          ?limit: Integer?,
+          ?pagination_key: String?,
+          ?sort_order: ("ascending" | "descending")?,
+          ?extra_headers: Hash[String, String]?,
+          ?extra_query: Hash[String, String]?,
+          ?extra_body: Hash[Symbol, untyped]?,
+          ?timeout: Integer?
+        ) -> Retell::SDK::Unofficial::CallList
+
+        def retell_llms: () -> Retell::SDK::Unofficial::RetellLLMList
+        def phone_numbers: () -> Retell::SDK::Unofficial::PhoneNumberList
+        def voices: () -> Retell::SDK::Unofficial::VoiceList
+
+        def request: (Symbol method, String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
+        def get: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
+        def post: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
+        def patch: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
+        def delete: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> nil
+
+        def make_request_options: (
+          ?extra_headers: Hash[String, String]?,
+          ?extra_query: Hash[String, String]?,
+          ?extra_body: Hash[Symbol, untyped]?,
+          ?timeout: Integer?
+        ) -> Hash[Symbol, untyped]
+
+        private
+
+        def headers: -> Hash[String, String]
+        def handle_response: (HTTParty::Response response) -> (list_response_types | single_response_types | void)
+        def parse_response: (HTTParty::Response response) -> (list_response_types | single_response_types | void)
+        def parse_array_response: (Array[Hash[String, untyped]] data) -> (list_response_types | void)
+        def parse_single_response: (Hash[String, untyped] data) -> (single_response_types | void)
+        def constantize: (String class_name) -> (single_response_type_singletons | list_response_type_singletons)
+        def constantize_item_class: (String class_name) -> single_response_type_singletons
+        def constantize_list_class: (String class_name) -> list_response_type_singletons
+        def process_type_key: (String type_key) -> String
+        def process_data: (Hash[String, untyped] data, String type_key) -> Hash[Symbol, untyped]
+        def float_fields: (String type_key) -> Array[Symbol]
+        def convert_to_float: (untyped value, String type_key, Symbol field_name) -> (Float | untyped)
+        def unknown_response_error: (String type) -> void
+      end
+
+      class Error < StandardError
+        attr_reader code: Integer
+        attr_reader message: String
+
+        def initialize: (Integer code, String message) -> void
+      end
+
+      class APITimeoutError < Error
+        attr_reader request: Hash[Symbol, untyped]
+
+        def initialize: (Hash[Symbol, untyped] request) -> void
+      end
+    end
+  end
+end

@@ -1,0 +1,16 @@
+module Retell
+  module SDK
+    module Unofficial
+      class PhoneCall < BaseCall
+        @attributes: Array[Symbol]
+
+        attr_reader from_number: String
+        attr_reader to_number: String
+        attr_reader direction: String
+
+        def initialize: (Retell::SDK::Unofficial::Client, Hash[Symbol, untyped] raw_response) -> void
+        def retrieve: -> void
+      end
+    end
+  end
+end

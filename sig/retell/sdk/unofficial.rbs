@@ -1,0 +1,7 @@
+module Retell
+  module SDK
+    module Unofficial
+      def self.new: (api_key: String, ?base_url: String?) -> Retell::SDK::Unofficial::Client
+    end
+  end
+end

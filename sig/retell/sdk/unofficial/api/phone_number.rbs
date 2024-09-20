@@ -1,0 +1,80 @@
+module Retell
+  module SDK
+    module Unofficial
+      module API
+        class PhoneNumber
+          def initialize: (Retell::SDK::Unofficial::Client) -> void
+
+          def create: (
+            ?area_code: Integer?,
+            ?inbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?inbound_agent: (String | Retell::SDK::Unofficial::Agent)?,
+            ?nickname: String?,
+            ?outbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?outbound_agent: (String | Retell::SDK::Unofficial::Agent)?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneNumber
+
+          def import: (
+            String phone_number,
+            termination_uri: String,
+            ?inbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?inbound_agent: (String | Retell::SDK::Unofficial::Agent)?,
+            ?nickname: String?,
+            ?outbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?outbound_agent: (String | Retell::SDK::Unofficial::Agent)?,
+            ?sip_trunk_auth_password: String?,
+            ?sip_trunk_auth_username: String?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneNumber
+
+          def retrieve: (
+            (String | Retell::SDK::Unofficial::PhoneNumber) phone_number,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneNumber
+
+          def list: (
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneNumberList
+
+          def update: (
+            (String | Retell::SDK::Unofficial::PhoneNumber) phone_number,
+            ?inbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?inbound_agent: (String | Retell::SDK::Unofficial::Agent)?,
+            ?nickname: String?,
+            ?outbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+            ?outbound_agent: (String | Retell::SDK::Unofficial::Agent)?,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::PhoneNumber
+
+          def delete: (
+            (String | Retell::SDK::Unofficial::PhoneNumber) phone_number,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> nil
+
+          private
+
+          def validate_phone_number: (String value, String param_name) -> void
+        end
+      end
+    end
+  end
+end

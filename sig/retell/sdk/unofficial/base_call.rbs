@@ -1,0 +1,74 @@
+module Retell
+  module SDK
+    module Unofficial
+      class BaseCall < Base
+        @attributes: Array[Symbol]
+
+        type disconnection_reason = "user_hangup" | "agent_hangup" | "call_transfer" | "voicemail_reached" | "inactivity" | "machine_detected" | "concurrency_limit_reached" | "no_valid_payment" | "scam_detected" | "error_inbound_webhook" | "dial_busy" | "dial_failed" | "dial_no_answer" | "error_llm_websocket_open" | "error_llm_websocket_lost_connection" | "error_llm_websocket_runtime" | "error_llm_websocket_corrupt_payload" | "error_frontend_corrupted_payload" | "error_twilio" | "error_no_audio_received" | "error_asr" | "error_retell" | "error_unknown" | "error_user_not_joined" | "registered_call_timeout"
+
+        type call_latency = {
+          p50: Float?,
+          p90: Float?,
+          p95: Float?,
+          p99: Float?,
+          max: Float?,
+          min: Float?,
+          num: Integer?
+        }
+
+        type word = {
+          word: String,
+          start: Float,
+          end: Float
+        }
+
+        type utterance = {
+          role: :agent | :user,
+          content: String,
+          words: Array[word]
+        }
+
+        type tool_call_invocation = {
+          role: :tool_call_invocation,
+          tool_call_id: String,
+          name: String,
+          arguments: String
+        }
+
+        type tool_call_result = {
+          role: :tool_call_result,
+          tool_call_id: String,
+          content: String
+        }
+
+        type utterance_or_tool_call = utterance | tool_call_invocation | tool_call_result
+
+        attr_reader call_id: String
+        attr_reader agent_id: String
+        attr_reader call_status: String
+        attr_reader call_type: String
+        attr_reader start_timestamp: Integer?
+        attr_reader end_timestamp: Integer?
+        attr_reader transcript: String?
+        attr_reader recording_url: String?
+        attr_reader public_log_url: String?
+        attr_reader call_analysis: Hash[Symbol, untyped]?
+        attr_reader e2e_latency: call_latency?
+        attr_reader llm_latency: call_latency?
+        attr_reader llm_websocket_network_rtt_latency: call_latency?
+        attr_reader transcript_object: Array[utterance]?
+        attr_reader transcript_with_tool_calls: Array[utterance_or_tool_call]?
+        attr_reader disconnection_reason: disconnection_reason?
+        attr_reader metadata: Hash[Symbol, untyped]?
+        attr_reader retell_llm_dynamic_variables: Hash[String, String]?
+        attr_reader opt_out_sensitive_data_storage: bool?
+
+        def id: () -> String
+        def agent: () -> String
+        def status: () -> String
+        def type: () -> String
+        def analysis: () -> Hash[Symbol, untyped]?
+      end
+    end
+  end
+end

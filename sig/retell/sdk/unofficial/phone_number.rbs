@@ -1,0 +1,34 @@
+module Retell
+  module SDK
+    module Unofficial
+      class PhoneNumber < Base
+        @attributes: Array[Symbol]
+
+        attr_reader phone_number: String
+        attr_reader phone_number_pretty: String
+        attr_reader inbound_agent_id: String?
+        attr_reader outbound_agent_id: String?
+        attr_reader area_code: String
+        attr_reader nickname: String?
+        attr_reader last_modification_timestamp: Time
+
+        def retrieve: () -> Retell::SDK::Unofficial::PhoneNumber
+        def update: (
+          ?inbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+          ?nickname: String?,
+          ?outbound_agent_id: (String | Retell::SDK::Unofficial::Agent)?,
+          ?extra_headers: Hash[String, String]?,
+          ?extra_query: Hash[String, String]?,
+          ?extra_body: Hash[Symbol, untyped]?,
+          ?timeout: Integer?
+        ) -> Retell::SDK::Unofficial::PhoneNumber
+        def delete: () -> nil
+
+        def inbound_agent: () -> (String | Retell::SDK::Unofficial::Agent)?
+        def inbound_agent=: (String | Retell::SDK::Unofficial::Agent) -> (String | Retell::SDK::Unofficial::Agent)
+        def outbound_agent: () -> (String | Retell::SDK::Unofficial::Agent)?
+        def outbound_agent=: (String | Retell::SDK::Unofficial::Agent) -> (String | Retell::SDK::Unofficial::Agent)
+      end
+    end
+  end
+end

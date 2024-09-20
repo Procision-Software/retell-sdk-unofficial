@@ -1,0 +1,12 @@
+module Retell
+  module SDK
+    module Unofficial
+      class Call
+        def self.new: (
+          Retell::SDK::Unofficial::Client client,
+          Hash[Symbol, untyped] raw_response
+        ) -> (Retell::SDK::Unofficial::WebCall | Retell::SDK::Unofficial::PhoneCall)
+      end
+    end
+  end
+end

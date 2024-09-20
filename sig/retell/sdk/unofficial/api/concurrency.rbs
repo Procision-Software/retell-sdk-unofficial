@@ -1,0 +1,18 @@
+module Retell
+  module SDK
+    module Unofficial
+      module API
+        class Concurrency
+          def initialize: (Retell::SDK::Unofficial::Client) -> void
+
+          def retrieve: (
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Retell::SDK::Unofficial::Concurrency
+        end
+      end
+    end
+  end
+end

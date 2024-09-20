@@ -1,0 +1,9 @@
+module Retell
+  module SDK
+    module Unofficial
+      module SharedTypes
+
+      end
+    end
+  end
+end

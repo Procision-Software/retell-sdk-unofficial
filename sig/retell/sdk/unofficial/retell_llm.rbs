@@ -1,0 +1,105 @@
+module Retell
+  module SDK
+    module Unofficial
+      class RetellLLM < Base
+        type model = :gpt_4o | :gpt_4o_mini | :claude_3_5_sonnet | :claude_3_haiku
+
+        type tool = (end_call_tool | transfer_call_tool | cal_tool | press_digit_tool | custom_tool)
+
+        type tool_parameter = {
+          type: :object,
+          properties: Hash[String, untyped],
+          required: Array[String]?
+        }
+
+        type state_edge = {
+          destination_state_name: String,
+          description: String,
+          parameters: tool_parameter?
+        }
+
+        type end_call_tool = {
+          type: :end_call,
+          name: String,
+          description: String?
+        }
+
+        type transfer_call_tool = {
+          type: :transfer_call,
+          name: String,
+          description: String?,
+          number: String
+        }
+
+        type cal_tool = {
+          type: :check_availability_cal | :book_appointment_cal,
+          name: String,
+          description: String?,
+          cal_api_key: String,
+          event_type_id: Integer,
+          timezone: String?
+        }
+
+        type press_digit_tool = {
+          type: :press_digit,
+          name: String,
+          description: String?
+        }
+
+        type custom_tool = {
+          type: "custom",
+          name: String,
+          url: String,
+          description: String,
+          parameters: tool_parameter,
+          speak_during_execution: bool,
+          speak_after_execution: bool,
+          execution_message_description: String?,
+          timeout_ms: Integer?
+        }
+
+        type state = {
+          name: String,
+          state_prompt: String,
+          edges: Array[state_edge]?,
+          tools: Array[tool]?
+        }
+
+        @attributes: Array[Symbol]
+
+        attr_reader last_modification_timestamp: Time
+        attr_reader llm_id: String
+        attr_reader llm_websocket_url: String
+        attr_reader begin_message: String?
+        attr_reader general_prompt: String?
+        attr_reader general_tools: Array[tool]?
+        attr_reader inbound_dynamic_variables_webhook_url: String?
+        attr_reader model: model
+        attr_reader model_temperature: Float?
+        attr_reader starting_state: String?
+        attr_reader states: Array[state]?
+
+        def retrieve: () -> Retell::SDK::Unofficial::RetellLLM
+        def update: (
+          ?begin_message: String?,
+          ?general_prompt: String?,
+          ?general_tools: Array[tool]?,
+          ?inbound_dynamic_variables_webhook_url: String?,
+          ?model: model?,
+          ?model_temperature: Float?,
+          ?starting_state: String?,
+          ?states: Array[state]?,
+          ?extra_headers: Hash[String, String]?,
+          ?extra_query: Hash[String, String]?,
+          ?extra_body: Hash[Symbol, untyped]?,
+          ?timeout: Integer?
+        ) -> Retell::SDK::Unofficial::RetellLLM
+        def delete: () -> nil
+
+        def id: () -> String
+        def websocket_url: () -> String
+        def url: () -> String
+      end
+    end
+  end
+end
