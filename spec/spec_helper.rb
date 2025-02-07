@@ -17,10 +17,18 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    unless ENV['TEST_API_BASE_URL'] || system('curl --silent "http://localhost:4010" > /dev/null 2>&1')
-      system('ruby scripts/mock.rb --daemon')
-      at_exit { system('kill $(lsof -t -i:4010)') }
+    # Kill any stale Prism servers running on port 4010
+    pids = `lsof -t -i:4010`.split("\n")
+    if pids.any?
+      puts "Killing stale Prism server(s) with PID(s): #{pids.join(', ')}"
+      pids.each { |pid| system("kill #{pid}") }
+    else
+      puts "No stale Prism servers found."
     end
+
+    # Start a new Prism server for testing
+    system('ruby scripts/mock.rb --daemon')
+    at_exit { system('kill $(lsof -t -i:4010)') }
   end
 
   config.before(:each) do
