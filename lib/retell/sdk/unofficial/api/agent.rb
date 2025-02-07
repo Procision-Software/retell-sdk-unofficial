@@ -8,7 +8,7 @@ module Retell
           end
 
           def create(
-            llm_websocket_url:,
+            response_engine:,
             voice_id:,
             agent_name: nil,
             ambient_sound: nil,
@@ -64,7 +64,7 @@ module Retell
             validate_numeric_range(volume, 'volume', 0, 2)
 
             payload = {
-              llm_websocket_url: llm_websocket_url,
+              response_engine: response_engine,
               voice_id: voice_id,
               agent_name: agent_name,
               ambient_sound: ambient_sound,
@@ -126,7 +126,7 @@ module Retell
 
           def update(
             agent_or_id,
-            llm_websocket_url: nil,
+            response_engine: nil,
             voice_id: nil,
             agent_name: nil,
             ambient_sound: nil,
@@ -185,7 +185,7 @@ module Retell
             validate_post_call_analysis_data(post_call_analysis_data) if post_call_analysis_data
 
             payload = {
-              llm_websocket_url: llm_websocket_url,
+              response_engine: response_engine,
               voice_id: voice_id,
               agent_name: agent_name,
               ambient_sound: ambient_sound,
@@ -247,7 +247,7 @@ module Retell
             extra_body: nil,
             timeout: nil
           )
-          agent_id = agent_or_id.is_a?(Retell::SDK::Unofficial::Agent) ? agent_or_id.agent_id : agent_or_id
+            agent_id = agent_or_id.is_a?(Retell::SDK::Unofficial::Agent) ? agent_or_id.agent_id : agent_or_id
 
             options = @client.make_request_options(
               extra_headers: extra_headers,

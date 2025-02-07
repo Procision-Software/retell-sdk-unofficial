@@ -6,7 +6,7 @@ RSpec.describe Retell::SDK::Unofficial::API::Agent do
   describe '#create' do
     it 'creates an agent with minimal parameters' do
       agent = client.agent.create(
-        llm_websocket_url: 'wss://your-websocket-endpoint',
+        response_engine: { type: "custom-llm", llm_websocket_url: 'wss://your-websocket-endpoint' },
         voice_id: '11labs-Adrian'
       )
       expect(agent).to be_a(Retell::SDK::Unofficial::Agent)
@@ -14,7 +14,7 @@ RSpec.describe Retell::SDK::Unofficial::API::Agent do
 
     it 'creates an agent with all parameters' do
       agent = client.agent.create(
-        llm_websocket_url: 'wss://your-websocket-endpoint',
+        response_engine: { type: "retell-llm", llm_id: 'retell-llm-id-123' },
         voice_id: '11labs-Adrian',
         agent_name: 'Jarvis',
         ambient_sound: 'coffee-shop',
@@ -62,7 +62,7 @@ RSpec.describe Retell::SDK::Unofficial::API::Agent do
 
     it 'creates an agent with extra options' do
       agent = client.agent.create(
-        llm_websocket_url: 'wss://your-websocket-endpoint',
+        response_engine: { type: "conversation-flow", conversation_flow_id: 'flow123' },
         voice_id: '11labs-Adrian',
         extra_headers: { 'X-Custom-Header' => 'CustomValue' },
         extra_query: { 'custom_query' => 'value' },
@@ -101,7 +101,6 @@ RSpec.describe Retell::SDK::Unofficial::API::Agent do
   describe '#delete' do
     it 'deletes an agent' do
       result = client.agent.delete('oBeDLoLOeuAbiuaMFXRtDOLriTJ5tSxD')
-
       expect(result).to be_nil
     end
   end
@@ -109,7 +108,7 @@ RSpec.describe Retell::SDK::Unofficial::API::Agent do
   describe 'float conversion' do
     it 'converts specific integer fields to floats for agents' do
       agent = client.agent.create(
-        llm_websocket_url: 'wss://your-websocket-endpoint',
+        response_engine: { type: "custom-llm", llm_websocket_url: 'wss://your-websocket-endpoint' },
         voice_id: '11labs-Adrian',
         agent_name: 'Float Test Agent',
         ambient_sound_volume: 1,
@@ -120,7 +119,6 @@ RSpec.describe Retell::SDK::Unofficial::API::Agent do
         voice_temperature: 1,
         end_call_after_silence_ms: 600000  # This should remain an integer
       )
-
       expect(agent.ambient_sound_volume).to be_a(Float)
       expect(agent.backchannel_frequency).to be_a(Float)
       expect(agent.interruption_sensitivity).to be_a(Float)

@@ -5,7 +5,7 @@ module Retell
         @attributes: Array[Symbol]
 
         attr_reader agent_id: String
-        attr_reader llm_websocket_url: String
+        attr_reader response_engine: (response_engine_retell_llm | response_engine_custom_llm | response_engine_conversation_flow)?
         attr_reader voice_id: String
         attr_reader agent_name: String?
         attr_reader ambient_sound: ("coffee-shop" | "convention-hall" | "summer-outdoor" | "mountain-outdoor" | "static-noise" | "call-center")?
@@ -37,7 +37,7 @@ module Retell
 
         def retrieve: () -> Retell::SDK::Unofficial::Agent
         def update: (
-          ?llm_websocket_url: String?,
+          ?response_engine: (response_engine_retell_llm | response_engine_custom_llm | response_engine_conversation_flow)?,
           ?voice_id: (String | Retell::SDK::Unofficial::Voice)?,
           ?agent_name: String?,
           ?ambient_sound: String?,
@@ -81,6 +81,21 @@ module Retell
         def fallback_voices: () -> Array[(String)]?
         def fallback_voices=: (Array[(String | Retell::SDK::Unofficial::Voice)]) -> Array[(String | Retell::SDK::Unofficial::Voice)]
       end
+
+      type response_engine_retell_llm = {
+        type: "retell-llm",
+        llm_id: String
+      }
+
+      type response_engine_custom_llm = {
+        type: "custom-llm",
+        llm_websocket_url: String
+      }
+
+      type response_engine_conversation_flow = {
+        type: "conversation-flow",
+        conversation_flow_id: String
+      }
 
       type string_analysis_data = {
         type: "string",

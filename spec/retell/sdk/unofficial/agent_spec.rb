@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Retell::SDK::Unofficial::Agent do
   let(:agent) do
     @client.agent.create(
-      llm_websocket_url: 'wss://example.com',
+      response_engine: { type: "custom-llm", llm_websocket_url: "wss://example.com" },
       voice_id: 'test_voice_id',
       agent_name: 'Test Agent'
     )

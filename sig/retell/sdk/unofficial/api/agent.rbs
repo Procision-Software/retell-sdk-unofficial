@@ -9,7 +9,7 @@ module Retell
           def initialize: (Retell::SDK::Unofficial::Client) -> void
 
           def create: (
-            llm_websocket_url: String,
+            response_engine: (response_engine_retell_llm | response_engine_custom_llm | response_engine_conversation_flow),
             voice_id: (String | Retell::SDK::Unofficial::Voice),
             ?agent_name: String?,
             ?ambient_sound: String?,
@@ -55,7 +55,7 @@ module Retell
 
           def update: (
             (String | Retell::SDK::Unofficial::Agent) agent_or_id,
-            ?llm_websocket_url: String?,
+            ?response_engine: (response_engine_retell_llm | response_engine_custom_llm | response_engine_conversation_flow)?,
             ?voice_id: (String | Retell::SDK::Unofficial::Voice)?,
             ?voice: (String | Retell::SDK::Unofficial::Voice)?,
             ?agent_name: String?,
