@@ -3,11 +3,11 @@ module Retell
     module Unofficial
       class Agent < Base
         @attributes = [
-          :agent_id, :llm_websocket_url, :voice_id, :agent_name, :ambient_sound, :ambient_sound_volume, :backchannel_frequency, :backchannel_words, :boosted_keywords, :enable_backchannel,:enable_voicemail_detection, :end_call_after_silence_ms, :fallback_voice_ids, :interruption_sensitivity, :language, :last_modification_timestamp, :max_call_duration_ms, :normalize_for_speech, :opt_out_sensitive_data_storage, :post_call_analysis_data, :pronunciation_dictionary, :reminder_max_count, :reminder_trigger_ms, :responsiveness, :voice_model, :voice_speed, :voice_temperature, :voicemail_detection_timeout_ms, :voicemail_message, :volume, :webhook_url
+          :agent_id, :llm_websocket_url, :voice_id, :agent_name, :ambient_sound, :ambient_sound_volume, :backchannel_frequency, :backchannel_words, :boosted_keywords, :enable_backchannel,:enable_voicemail_detection, :end_call_after_silence_ms, :fallback_voice_ids, :interruption_sensitivity, :language, :last_modification_timestamp, :max_call_duration_ms, :normalize_for_speech, :opt_out_sensitive_data_storage, :post_call_analysis_data, :pronunciation_dictionary, :reminder_max_count, :reminder_trigger_ms, :responsiveness, :voice_model, :voice_speed, :voice_temperature, :voicemail_detection_timeout_ms, :voicemail_message, :volume, :webhook_url, :response_engine
         ]
 
         @writeable_attributes = [
-          :llm_websocket_url, :voice_id, :agent_name, :ambient_sound, :ambient_sound_volume, :backchannel_frequency, :backchannel_words, :boosted_keywords, :enable_backchannel, :enable_voicemail_detection, :end_call_after_silence_ms, :fallback_voice_ids, :interruption_sensitivity, :language, :max_call_duration_ms, :normalize_for_speech, :opt_out_sensitive_data_storage, :post_call_analysis_data, :pronounciation_dictionary, :reminder_max_count, :reminder_trigger_ms, :responsiveness, :voice_model, :voice_speed, :voice_temperature, :voicemail_detection_timeout_ms, :voicemail_message, :volume, :webhook_url
+          :llm_websocket_url, :voice_id, :agent_name, :ambient_sound, :ambient_sound_volume, :backchannel_frequency, :backchannel_words, :boosted_keywords, :enable_backchannel, :enable_voicemail_detection, :end_call_after_silence_ms, :fallback_voice_ids, :interruption_sensitivity, :language, :max_call_duration_ms, :normalize_for_speech, :opt_out_sensitive_data_storage, :post_call_analysis_data, :pronounciation_dictionary, :reminder_max_count, :reminder_trigger_ms, :responsiveness, :voice_model, :voice_speed, :voice_temperature, :voicemail_detection_timeout_ms, :voicemail_message, :volume, :webhook_url, :response_engine
         ]
 
         attr_reader *@attributes
