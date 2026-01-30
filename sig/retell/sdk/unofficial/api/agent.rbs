@@ -53,6 +53,14 @@ module Retell
             ?timeout: Integer?
           ) -> Retell::SDK::Unofficial::Agent
 
+          def list_versions: (
+            (String | Retell::SDK::Unofficial::Agent) agent_or_id,
+            ?extra_headers: Hash[String, String]?,
+            ?extra_query: Hash[String, String]?,
+            ?extra_body: Hash[Symbol, untyped]?,
+            ?timeout: Integer?
+          ) -> Array[Hash[String, untyped]]
+
           def update: (
             (String | Retell::SDK::Unofficial::Agent) agent_or_id,
             ?response_engine: (response_engine_retell_llm | response_engine_custom_llm | response_engine_conversation_flow)?,

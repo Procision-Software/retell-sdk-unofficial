@@ -124,6 +124,31 @@ module Retell
             @client.get("/get-agent/#{agent_id}", **options)
           end
 
+          # Retrieves all versions of an agent.
+          # Returns an array of version objects with keys:
+          #   - version (Integer)
+          #   - is_published (Boolean)
+          #   - version_description (String or nil)
+          #   - last_modification_timestamp (Integer, Unix ms)
+          def list_versions(
+            agent_or_id,
+            extra_headers: nil,
+            extra_query: nil,
+            extra_body: nil,
+            timeout: nil
+          )
+            agent_id = agent_or_id.is_a?(Retell::SDK::Unofficial::Agent) ? agent_or_id.agent_id : agent_or_id
+
+            options = @client.make_request_options(
+              extra_headers: extra_headers,
+              extra_query: extra_query,
+              extra_body: extra_body,
+              timeout: timeout
+            )
+
+            @client.get_raw("/get-agent-versions/#{agent_id}", **options)
+          end
+
           def update(
             agent_or_id,
             response_engine: nil,

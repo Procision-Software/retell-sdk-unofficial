@@ -71,6 +71,17 @@ module Retell
         end
 
         def request(method, path, params = {}, **options)
+          response = execute_request(method, path, params, **options)
+          handle_response(response)
+        end
+
+        # Execute request and return raw parsed JSON without model wrapping
+        def request_raw(method, path, params = {}, **options)
+          response = execute_request(method, path, params, **options)
+          handle_response_raw(response)
+        end
+
+        def execute_request(method, path, params = {}, **options)
           url = "#{@base_url}#{path}"
 
           http_options = {
@@ -96,7 +107,7 @@ module Retell
           end
 
           begin
-            response = HTTParty.send(
+            HTTParty.send(
               method,
               url,
               http_options
@@ -104,12 +115,16 @@ module Retell
           rescue Net::OpenTimeout, Net::ReadTimeout, Timeout::Error, Errno::ETIMEDOUT => e
             raise APITimeoutError.new(http_options)
           end
-
-          handle_response(response)
         end
 
         def get(path, params = {}, **options)
           request(:get, path, params, **options)
+        end
+
+        # Returns the parsed JSON response without wrapping in model objects.
+        # Useful for endpoints that return arrays of plain hashes (e.g., agent versions).
+        def get_raw(path, params = {}, **options)
+          request_raw(:get, path, params, **options)
         end
 
         def post(path, params = {}, **options)
@@ -150,6 +165,22 @@ module Retell
             return nil
           when 200..299
             parse_response(response)
+          when 400..499
+            raise Retell::SDK::Unofficial::Error.new(response.code, "Client error: #{response.body}")
+          when 500..599
+            raise Retell::SDK::Unofficial::Error.new(response.code, "Server error: #{response.body}")
+          else
+            raise Retell::SDK::Unofficial::Error.new(response.code, "Unknown error: #{response.body}")
+          end
+        end
+
+        # Returns parsed JSON directly without wrapping in model objects
+        def handle_response_raw(response)
+          case response.code
+          when 204
+            return nil
+          when 200..299
+            response.parsed_response
           when 400..499
             raise Retell::SDK::Unofficial::Error.new(response.code, "Client error: #{response.body}")
           when 500..599

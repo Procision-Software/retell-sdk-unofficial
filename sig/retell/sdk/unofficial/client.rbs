@@ -40,7 +40,10 @@ module Retell
         def voices: () -> Retell::SDK::Unofficial::VoiceList
 
         def request: (Symbol method, String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
+        def request_raw: (Symbol method, String path, ?Hash[Symbol, untyped] params, **untyped options) -> untyped
+        def execute_request: (Symbol method, String path, ?Hash[Symbol, untyped] params, **untyped options) -> HTTParty::Response
         def get: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
+        def get_raw: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> untyped
         def post: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
         def patch: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> (list_response_types | single_response_types | void)
         def delete: (String path, ?Hash[Symbol, untyped] params, **untyped options) -> nil
@@ -56,6 +59,7 @@ module Retell
 
         def headers: -> Hash[String, String]
         def handle_response: (HTTParty::Response response) -> (list_response_types | single_response_types | void)
+        def handle_response_raw: (HTTParty::Response response) -> untyped
         def parse_response: (HTTParty::Response response) -> (list_response_types | single_response_types | void)
         def parse_array_response: (Array[Hash[String, untyped]] data) -> (list_response_types | void)
         def parse_single_response: (Hash[String, untyped] data) -> (single_response_types | void)
